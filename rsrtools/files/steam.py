@@ -68,7 +68,7 @@ def load_vdf(vdf_path: Path, strip_quotes: bool = False) -> Dict[Any, Any]:
     node: Dict[Any, Any] = vdf_dict
     section_label = ""
     branches = list()
-    with vdf_path.open("rt") as fh:
+    with vdf_path.open("rt", encoding="utf8") as fh:
         for line in fh:
             line_str = line.strip()
             try:
@@ -323,8 +323,7 @@ class SteamAccounts:
             if users_dir.is_dir():
                 for child in users_dir.iterdir():
                     if child.is_dir():
-                        if len(child.name) == 8 and child.name.isdigit():
-                            # Expecting an 8 digit integer account id.
+                        if child.name.isdigit():
                             ret_val[child.name] = child
 
         return ret_val

@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import simplejson
+import re
 
 from rsrtools.files.profilemanager import PROFILE_DB_STR, RSProfileManager
 from rsrtools.files.steam import RS_APP_ID, STEAM_REMOTE_DIR, SteamAccounts
@@ -117,7 +118,7 @@ def validate_song_keys(song_lists_dict: Dict[str, List[str]], working: Path) -> 
     if key_list is None:
         # do the most basic checks possible
         for id, song_list in song_lists_dict.items():
-            failed = [x for x in song_list if not x.isalnum()]
+            failed = [x for x in song_list if not re.match('^[a-zA-Z0-9_-]+$', '123abc')]
             if failed:
                 raise ValueError(
                     f"Song Key(s) for song list '{id}' are not alphanumeric."
